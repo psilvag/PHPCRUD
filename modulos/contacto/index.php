@@ -2,10 +2,21 @@
 
 <?php
     include "../../conexion.php";
-    
+
     $stm=$conexion->prepare("SELECT * FROM contactos");
     $stm->execute();
     $contactos=$stm->fetchAll(PDO::FETCH_ASSOC);
+
+    //ELIMINAR CONTACTO
+if(isset($_GET['id'])){
+   $id=(isset($_GET['id']) ? $_GET['id']:"");
+   $stm=$conexion->prepare("DELETE FROM contactos WHERE id=:id");  
+   $stm->bindParam(":id",$id);
+   $stm->execute();
+   header("location:contacto");
+}
+
+
 ?>
 
 <?php include "../../templates/header.php"?>
@@ -34,12 +45,17 @@
                 <td><?php echo $contacto['nombre'];?></td>
                 <td><?php echo $contacto['telefono'];?></td>
                 <td><?php echo $contacto['fecha'];?></td>
+                <td>
+                <a href="contacto/editar.php?id=<?php echo $contacto['id'];?>" class="btn btn-success">Editar</a>
+                <a href="contacto?id=<?php echo $contacto['id'];?>" class="btn btn-danger">Eliminar</a>
+                </td>
             </tr>
         <?php }?>
         </tbody>
        
     </table>
 </div>
+
 
 
 

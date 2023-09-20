@@ -5,14 +5,14 @@
   $fecha=(isset($_POST['fecha'])? $_POST['fecha']:"");
  
  
- $stm=$conexion->prepare("INSERT INTO contactos (id,nombre,telefono,fecha) VALUES 
+ $stm=$conexion->prepare("INSERT INTO contactos(id,nombre,telefono,fecha) VALUES 
  (null,:nombre,:telefono,:fecha)");
  $stm->bindParam(":nombre",$nombre);
  $stm->bindParam(":telefono",$telefono);
  $stm->bindParam(":fecha",$fecha);
  $stm->execute();
  
- header("location/index.php");
+ header("location:contacto");
  }
 
 ?>
